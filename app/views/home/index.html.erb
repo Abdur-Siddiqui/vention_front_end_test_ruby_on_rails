@@ -1,0 +1,39 @@
+<h1><%= "Flower App" %></h1>
+<div class="container">
+<% @flowerItems.each_with_index do |item, index| %>
+    <div class="card">
+      <div class="card-img">
+        <% if index == 0 %>
+          <img src="/images/blue-flower.png" alt="bluepic" style="width:100%; height:100%;"/>
+        <% elsif index == 1 %>
+          <img src="/images/orange-flower.png" alt="bluepic"  style="width:100%; height:100%;"/>
+        <% else %>
+          <img src="/images/pink-flower.png" alt="bluepic"  style="width:100%; height:100%;"/>
+          <% end %> 
+      </div>
+
+      <button class="hover-text-button" onclick="addToCart(this, <%= index %>)">
+      <% unless item[:isInCart] %>
+        <p>Add to cart</p>
+      <% else %>
+        <p>Remove from cart</p>
+        <div class="circle"> In Cart </div>
+      <% end %>
+    </button>
+ 
+      <div class ="border">
+        <h2> <%= item[:name] %> </h2>
+        <h3> $ <%= item[:price] %> </h3>
+        <% if item[:stars] %>
+          <% item[:stars].times do %>
+            <img src="/images/star.svg" alt="star"/>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  var flowerItems = <%= @flowerItems.to_json.html_safe %>;
+</script>
